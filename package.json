@@ -1,0 +1,36 @@
+{
+  "name": "compare-names",
+  "version": "1.0.0",
+  "description": "Fuzzily compare two arrays of names",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hash-bang/compare-names.git"
+  },
+  "keywords": [
+    "compare",
+    "comparison",
+    "names",
+    "fullnames"
+  ],
+  "author": "Matt Carter <m@ttcarter.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hash-bang/compare-names/issues"
+  },
+  "homepage": "https://github.com/hash-bang/compare-names#readme",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "levenshtein-dist": "^0.1.1",
+    "lodash": "^3.9.3"
+  }
+}
