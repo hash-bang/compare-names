@@ -74,6 +74,17 @@ function splitAuthor(author, firstLast) {
 	return out;
 }
 
+
+/**
+* Splits a single string of multiple authors into an array
+* @param string str The string to split
+* @return array The array of extracted authors
+*/
+function splitAuthorString(str) {
+	return str.split(/\s*;\s*/);
+}
+
+
 /**
 * Compare an array of authors against a second array
 * @param array a The first array of authors
@@ -81,13 +92,13 @@ function splitAuthor(author, firstLast) {
 * @return bolean True if a ≈ b
 */
 function compareNames(a, b) {
-	var authorLimit = Math.min(a.length, b.length);
-
-	if (!_.isArray(a)) a = [a];
-	if (!_.isArray(b)) b = [b];
+	if (!_.isArray(a)) a = splitAuthorString(a);
+	if (!_.isArray(b)) b = splitAuthorString(b);
 
 	var aPos = 0, bPos = 0;
+	var authorLimit = Math.min(a.length, b.length);
 	var failed = false;
+
 	while (aPos < authorLimit && bPos < authorLimit) {
 		if (isDecendentNumeric(a[aPos])) {
 			aPos++;
