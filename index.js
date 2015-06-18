@@ -71,24 +71,20 @@ function compareNames(a, b) {
 	var failed = false;
 
 	while (aPos < authorLimit && bPos < authorLimit) {
-		if (isDecendentNumeric(a[aPos])) {
-			aPos++;
-		} else if (isDecendentNumeric(b[bPos])) {
-			bPos++;
-		} else if (a[aPos] == b[bPos] || fuzzyStringCompare(a[aPos], b[bPos])) {
+		if (fuzzyStringCompare(a[aPos], b[bPos])) { // Direct or fuzzy matching of entire strings
 			aPos++;
 			bPos++;
 		} else {
 			var aAuth = splitAuthor(a[aPos]);
-			var bAuth = splitAuthor(b[aPos]);
+			var bAuth = splitAuthor(b[bPos]);
 			var nameLimit = Math.min(aAuth.length, bAuth.length);
-			var nameMatches = 1;
+			var nameMatches = 0;
 			for (var n = 0; n < nameLimit; n++) {
 				if (
 					aAuth[n] == bAuth[n] || // Direct match
 					aAuth[n].length == 1 && bAuth[n].substr(0, 1) || // A is initial and B is full name
 					bAuth[n].length == 1 && aAuth[n].substr(0, 1) ||
-					fuzzyStringCompare(aAuth[n], bAuth[n])
+					(aAuth[n].length > 1 && bAuth[n].length > 1 && fuzzyStringCompare(aAuth[n], bAuth[n], 3))
 				) {
 					nameMatches++;
 				}
@@ -102,7 +98,6 @@ function compareNames(a, b) {
 			}
 			break;
 		}
-		aPos++;
 	}
 	return !failed;
 }
