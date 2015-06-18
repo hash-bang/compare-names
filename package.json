@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "levenshtein-dist": "^0.1.1",
-    "lodash": "^3.9.3"
+    "lodash.isarray": "^3.0.3"
   }
 }

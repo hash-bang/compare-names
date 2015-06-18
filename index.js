@@ -1,4 +1,4 @@
-var _ = require('lodash');
+var isArray = require('lodash.isarray');
 var levenshtein = require('levenshtein-dist');
 
 /**
@@ -63,8 +63,8 @@ function splitAuthorString(str) {
 * @return bolean True if a ≈ b
 */
 function compareNames(a, b) {
-	if (!_.isArray(a)) a = splitAuthorString(a);
-	if (!_.isArray(b)) b = splitAuthorString(b);
+	if (!isArray(a)) a = splitAuthorString(a);
+	if (!isArray(b)) b = splitAuthorString(b);
 
 	var aPos = 0, bPos = 0;
 	var authorLimit = Math.min(a.length, b.length);
