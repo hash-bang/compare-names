@@ -16,9 +16,10 @@ function stripNoise(a) {
 * Fuzzily compare strings a and b
 * @param string a The first string to compare
 * @param string b The second string to compare
+* @param number tolerence The tolerence when comparing using levenshtein, defaults to 10
 * @return boolean True if a ≈ b
 */
-function fuzzyStringCompare(a, b) {
+function fuzzyStringCompare(a, b, tolerence) {
 	if (a == b) return true;
 
 	var as = stripNoise(a);
@@ -27,18 +28,8 @@ function fuzzyStringCompare(a, b) {
 	var bs = stripNoise(b);
 	if (bs.length > 255) bs = bs.substr(0, 255);
 
-	if (levenshtein(as, bs) < 10) return true;
-}
-
-
-/**
-* Returns true if the string 'looks' numeric
-* e.g. '1st', '23rd'
-* @param string string The string to examine
-* @return boolean True if the string appears to be numeric
-*/
-function isDecendentNumeric(a) {
-	return /^[0-9]+(st|nd|rd|th)$/.test(a);
+	if (tolerence == undefined && levenshtein(as, bs) < 10) return true;
+	if (tolerence && levenshtein(as, bs) <= tolerence) return true;
 }
 
 
