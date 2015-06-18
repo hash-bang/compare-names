@@ -36,33 +36,13 @@ function fuzzyStringCompare(a, b, tolerence) {
 /**
 * Splits an author string into its component parts
 * @param string author The raw author string to split
-* @param boolean firstLast Whether to allow firstname-lastname hyman style names (e.g. 'John Smith'). If false all names are treated as if they are specified in last-first order
 * @return array An array composed of lastname, initial/name
 */
-function splitAuthor(author, firstLast) {
-	var out = [];
-
-	var re = new RegExp('/^(.*?)' + (firstLast ? ',' : ',?') + '\s*(.*)\s*$/');
-	var matches = re.exec(author);
-	if (matches) {
-		if (matches[1]) out.push(matches[1]);
-		matches[2].split(/\s*(\.| )\s*/).forEach(function(rawInitial) {
-			var initial = rawInitial
-				.replace(/^\s+/, '')
-				.replace(/\s+$/, '');
-			if (initial) out.push(initial);
-		});
-	} else if (firstLast && (matches = /^(.*)\s+(.*)/.exec(author))) {
-		out.push(matches[2]);
-		matches[1].split(/\s*(\.| )\s*/).forEach(function(rawInitial) {
-			var initial = rawInitial
-				.replace(/^\s+/, '')
-				.replace(/\s+$/, '');
-		});
-	} else { // No idea - return the whole string as an entry
-		out.push(author);
-	}
-	return out;
+function splitAuthor(author) {
+	return author
+		.split(/\s*[,\.\s]\s*/)
+		.filter(function(i) { return !!i }) // Strip out blanks
+		.filter(function(i) { return !/^[0-9]+(st|nd|rd|th)$/.test(i) }); // Strip out decendent numerics (e.g. '1st', '23rd')
 }
 
 
