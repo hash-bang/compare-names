@@ -2,13 +2,6 @@ var ca = require('..');
 var expect = require('chai').expect;
 
 describe('compare-authors', function() {
-	it('should accept strings', function() {
-		expect(ca(
-			'Light, Richard W.',
-			'Light, R. W.'
-		)).to.be.true;
-	});
-
 	it('should accept initalisms', function() {
 		expect(ca(
 			['Light, Richard W.'],
@@ -16,10 +9,17 @@ describe('compare-authors', function() {
 		)).to.be.true;
 	});
 
+	it('should accept string inputs', function() {
+		expect(ca(
+			'Light, Richard W.',
+			'Light, R. W.'
+		)).to.be.true;
+	});
+
 	it('should accept numeric decendents', function() {
 		expect(ca(
 			['Izbicki, R', 'Weyhing, B. T. I.', 'Backer, L'],
-			['Izbicki, R 3rd', 'Weyhing, B. T.', 'Backer, L, Caoili, E. M.l Vaitkevicius, V.K.']
+			['Izbicki, R 3rd', 'Weyhing, B. T.', 'Backer, L', 'Caoili, E.', 'M.l Vaitkevicius, V.K.']
 		)).to.be.true;
 	});
 
@@ -66,13 +66,6 @@ describe('compare-authors', function() {
 	});
 
 	it('should not accept misordered names', function() {
-		expect(ca(
-			['foo', 'bar', 'baz'],
-			['baz', 'bar', 'foo']
-		)).to.be.false;
-	});
-
-	it('should not accept misordered names #2', function() {
 		expect(ca(
 			['Hulzebos, E. H. J',  'Helders, P. J.', 'Favie, N. J.'],
 			['Favie, N. J.', 'Helders, Paul J.', 'Hulzebos, E. H.']
