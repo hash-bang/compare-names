@@ -37,6 +37,27 @@ describe('compare-authors', function() {
 		)).to.be.ok;
 	});
 
+	it('should ignore case', function() {
+		expect(ca(
+			['Masciom Christopher E.', 'Austin, Erle H.'],
+			['masciom christopher e.', 'austin, erle h.']
+		)).to.be.true;
+	});
+
+	it('should ignore case #2', function() {
+		expect(ca(
+			['Masciom Christopher E.', 'Austin, Erle H.'],
+			['MASCIOM CHRISTOPHER E.', 'AUSTIN, ERLE H.']
+		)).to.be.true;
+	});
+
+	it('should ignore case #3', function() {
+		expect(ca(
+			['masciom christopher e.', 'austin, erle h.'],
+			['MASCIOM CHRISTOPHER E.', 'AUSTIN, ERLE H.']
+		)).to.be.true;
+	});
+
 	it('should discard punctuation', function() {
 		expect(ca(
 			'Toomes, H',

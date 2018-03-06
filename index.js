@@ -23,9 +23,11 @@ function fuzzyStringCompare(a, b, tolerence) {
 	if (a == b) return true;
 
 	var as = stripNoise(a);
+	as = as.toLowerCase();
 	if (as.length > 255) as = as.substr(0, 255);
 
 	var bs = stripNoise(b);
+	bs = bs.toLowerCase();
 	if (bs.length > 255) bs = bs.substr(0, 255);
 
 	if (tolerence == undefined && levenshtein(as, bs) < 10) return true;
